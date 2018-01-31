@@ -26,22 +26,22 @@ namespace Engine
 			 * ==========================*/
 			float   Length( ) const;
 			float   SquaredLength( ) const;
-			Vector2 Normalize( );
+			float	Normalize( );
 			
 			/* ==========================
 			 * OPERATORS
 			 * ==========================*/
-			Vector2& operator= ( const Vector2& rhs );
-			Vector2& operator+=( const Vector2& rhs );
-			Vector2& operator-=( const Vector2& rhs );
-			Vector2& operator*=( const Vector2& rhs );
-			Vector2& operator/=( const Vector2& rhs );
-			Vector2  operator+( const Vector2& rhs ) const;
-			Vector2  operator-(const Vector2& rhs) const;
-			Vector2  operator*(const Vector2& rhs) const;
-			Vector2  operator/(const Vector2& rhs) const;
-			bool     operator==( const Vector2& rhs ) const;
-			bool     operator!=(const Vector2& rhs) const;
+			Vector2& operator= ( const Vector2& );
+			Vector2& operator+=( const Vector2& );
+			Vector2& operator-=( const Vector2& );
+			Vector2& operator*=( const Vector2& );
+			Vector2& operator/=( const Vector2& );
+			Vector2  operator+( const Vector2& ) const;
+			Vector2  operator-(const Vector2& ) const;
+			Vector2  operator*(const Vector2& ) const;
+			Vector2  operator/(const Vector2& ) const;
+			bool     operator==( const Vector2& ) const;
+			bool     operator!=(const Vector2& ) const;
 			friend Vector2 operator*(float, const Vector2&);
 			friend Vector2 operator*(const Vector2&, float);
 
