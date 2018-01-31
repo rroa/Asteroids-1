@@ -1,3 +1,8 @@
+/*
+ * @author Raul Roa
+ * @version v0.0.1
+*/
+
 #if _MSC_VER && _DEBUG
 	#define _CRTDBG_MAP_ALLOC
 	#include <crtdbg.h>
