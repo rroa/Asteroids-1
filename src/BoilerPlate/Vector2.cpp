@@ -31,7 +31,7 @@ namespace Engine
 			Length();
 		}
 
-		float Vector2::Length( ) const
+		float Vector2::Length() const
 		{
 			return std::sqrt(x * x + y * y);
 		}

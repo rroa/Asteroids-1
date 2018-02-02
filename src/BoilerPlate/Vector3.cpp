@@ -1,5 +1,10 @@
 #include "Vector3.hpp"
+
+// std includes
 #include <cmath>
+
+//
+#include "Vector2.hpp"
 
 namespace Engine
 {
@@ -29,6 +34,16 @@ namespace Engine
 			, y      ( _uniform )
 			, z      ( _uniform )
 			, length ( 0.0f )
+		{
+			// Calculate Length
+			Length();
+		}
+
+		Vector3::Vector3(const Vector2& vec2)
+			: x( vec2.x )
+			, y( vec2.y )
+			, z( 0.0f )
+			, length(0.0f)
 		{
 			// Calculate Length
 			Length();

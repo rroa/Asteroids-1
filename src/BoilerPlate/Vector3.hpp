@@ -7,6 +7,7 @@ namespace Engine
 {
 	namespace Math
 	{
+		struct Vector2;
 		struct Vector3
 		{
 			/* ==========================
@@ -17,33 +18,34 @@ namespace Engine
 			/* ==========================
 			* CTOR
 			* ==========================*/
-			Vector3();
-			Vector3(float, float, float);
-			Vector3(float);
+			Vector3( );
+			Vector3( float, float, float );
+			Vector3( float );
+			Vector3( const Vector2& );
 
 			/* ==========================
 			* PUBLIC FUNCTIONS
 			* ==========================*/
-			float   Length() const;
-			float   SquaredLength() const;
-			float	Normalize();
+			float   Length( ) const;
+			float   SquaredLength( ) const;
+			float	Normalize( );
 
 			/* ==========================
 			* OPERATORS
 			* ==========================*/
-			Vector3& operator= (const Vector3&);
-			Vector3& operator+=(const Vector3&);
-			Vector3& operator-=(const Vector3&);
-			Vector3& operator*=(const Vector3&);
-			Vector3& operator/=(const Vector3&);
-			Vector3  operator+(const Vector3&) const;
-			Vector3  operator-(const Vector3&) const;
-			Vector3  operator*(const Vector3&) const;
-			Vector3  operator/(const Vector3&) const;
-			bool     operator==(const Vector3&) const;
-			bool     operator!=(const Vector3&) const;
-			friend Vector3 operator*(float, const Vector3&);
-			friend Vector3 operator*(const Vector3&, float);
+			Vector3& operator= ( const Vector3& );
+			Vector3& operator+=( const Vector3& );
+			Vector3& operator-=( const Vector3& );
+			Vector3& operator*=( const Vector3& );
+			Vector3& operator/=( const Vector3& );
+			Vector3  operator+( const Vector3& ) const;
+			Vector3  operator-( const Vector3& ) const;
+			Vector3  operator*( const Vector3& ) const;
+			Vector3  operator/( const Vector3& ) const;
+			bool     operator==( const Vector3& ) const;
+			bool     operator!=( const Vector3& ) const;
+			friend Vector3 operator*( float, const Vector3& );
+			friend Vector3 operator*( const Vector3&, float );
 
 			/* ==========================
 			* MEMBERS
