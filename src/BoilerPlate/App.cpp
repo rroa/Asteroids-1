@@ -2,18 +2,13 @@
 #include <iostream>
 #include <algorithm>
 
-// OpenGL includes
-#include <GL/glew.h>
-#include <SDL2/SDL_opengl.h>
-
-#include "Vector2.hpp"
+#include "IncludeGL.hpp"
 
 namespace Engine
 {
 	const float DESIRED_FRAME_RATE = 60.0f;
 	const float DESIRED_FRAME_TIME = 1.0f / DESIRED_FRAME_RATE;
 
-	Engine::Math::Vector2* vec2;
 	float movingUnit = 10.0f;
 
 	App::App(const std::string& title, const int width, const int height)
@@ -28,14 +23,15 @@ namespace Engine
 		m_lastFrameTime = m_timer->GetElapsedTimeInSeconds();
 
 		//
-		vec2 = new Engine::Math::Vector2(0.0f, 0.0f);
+		m_player =
+			new Game::Player();
 	}
 
 	App::~App()
 	{
-		if (vec2)
+		if (m_player)
 		{
-			delete vec2;
+			delete m_player;
 		}
 
 		CleanupSDL();
@@ -95,19 +91,23 @@ namespace Engine
 		{
 		case SDL_SCANCODE_W:
 			SDL_Log("Going up!");
-			vec2->y += movingUnit;
+			m_player->Move(
+				Engine::Math::Vector2(0.0f, movingUnit));
 			break;
 		case SDL_SCANCODE_A:
 			SDL_Log("Going left!");
-			vec2->x -= movingUnit;
+			m_player->Move(
+				Engine::Math::Vector2(-movingUnit, 0.0f));
 			break;
 		case SDL_SCANCODE_D:
 			SDL_Log("Going right!");
-			vec2->x += movingUnit;
+			m_player->Move(
+				Engine::Math::Vector2(movingUnit, 0.0f));
 			break;
 		case SDL_SCANCODE_S:
 			SDL_Log("Going down!");
-			vec2->y -= movingUnit;
+			m_player->Move(
+				Engine::Math::Vector2(0.0f, -movingUnit));
 			break;
 		default:			
 			SDL_Log("Physical %s key acting as %s key",
@@ -158,16 +158,8 @@ namespace Engine
 		glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		glLoadIdentity();
-		glTranslatef(vec2->x, vec2->y, 0.0f);
-
-		glBegin(GL_LINE_LOOP);
-			glVertex2f(50.0, 50.0);
-			glVertex2f(50.0, -50.0);
-			glVertex2f(-50.0, -50.0);
-			glVertex2f(-50.0, 50.0);
-		glEnd();
-
+		m_player->Render();// Loads the identity matrix
+		
 		SDL_GL_SwapWindow(m_mainWindow);
 	}
 
