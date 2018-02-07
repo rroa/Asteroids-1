@@ -10,6 +10,9 @@
 #include "SDLEvent.hpp"
 #include "TimeManager.hpp"
 
+//
+#include "Player.hpp"
+
 namespace Engine
 {
 	class App : public SDLEvent
@@ -67,6 +70,8 @@ namespace Engine
 		GameState::State					m_state;
 		Engine::TimeManager*				m_timer;
 
+		//
+		Game::Player*						m_player;
 	};
 }
 #endif /* GAME_HPP */

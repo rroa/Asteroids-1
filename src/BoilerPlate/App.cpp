@@ -2,14 +2,14 @@
 #include <iostream>
 #include <algorithm>
 
-// OpenGL includes
-#include <GL/glew.h>
-#include <SDL2/SDL_opengl.h>
+#include "IncludeGL.hpp"
 
 namespace Engine
 {
 	const float DESIRED_FRAME_RATE = 60.0f;
 	const float DESIRED_FRAME_TIME = 1.0f / DESIRED_FRAME_RATE;
+
+	float movingUnit = 10.0f;
 
 	App::App(const std::string& title, const int width, const int height)
 		: m_title(title)
@@ -21,10 +21,19 @@ namespace Engine
 	{
 		m_state = GameState::UNINITIALIZED;
 		m_lastFrameTime = m_timer->GetElapsedTimeInSeconds();
+
+		//
+		m_player =
+			new Game::Player();
 	}
 
 	App::~App()
 	{
+		if (m_player)
+		{
+			delete m_player;
+		}
+
 		CleanupSDL();
 	}
 
@@ -77,11 +86,33 @@ namespace Engine
 	}
 
 	void App::OnKeyDown(SDL_KeyboardEvent keyBoardEvent)
-	{		
+	{
 		switch (keyBoardEvent.keysym.scancode)
 		{
+		case SDL_SCANCODE_W:
+			SDL_Log("Going up!");
+			m_player->Move(
+				Engine::Math::Vector2(0.0f, movingUnit));
+			break;
+		case SDL_SCANCODE_A:
+			SDL_Log("Going left!");
+			m_player->Move(
+				Engine::Math::Vector2(-movingUnit, 0.0f));
+			break;
+		case SDL_SCANCODE_D:
+			SDL_Log("Going right!");
+			m_player->Move(
+				Engine::Math::Vector2(movingUnit, 0.0f));
+			break;
+		case SDL_SCANCODE_S:
+			SDL_Log("Going down!");
+			m_player->Move(
+				Engine::Math::Vector2(0.0f, -movingUnit));
+			break;
 		default:			
-			SDL_Log("%S was pressed.", keyBoardEvent.keysym.scancode);
+			SDL_Log("Physical %s key acting as %s key",
+				SDL_GetScancodeName(keyBoardEvent.keysym.scancode),
+				SDL_GetKeyName(keyBoardEvent.keysym.sym));
 			break;
 		}
 	}
@@ -127,13 +158,8 @@ namespace Engine
 		glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		glBegin(GL_LINE_LOOP);
-			glVertex2f(50.0, 50.0);
-			glVertex2f(50.0, -50.0);
-			glVertex2f(-50.0, -50.0);
-			glVertex2f(-50.0, 50.0);
-		glEnd();
-
+		m_player->Render();// Loads the identity matrix
+		
 		SDL_GL_SwapWindow(m_mainWindow);
 	}
 

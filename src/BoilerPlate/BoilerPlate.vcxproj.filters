@@ -12,6 +12,9 @@
     <ClCompile Include="Vector3.cpp">
       <Filter>Engine\Source files</Filter>
     </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Game\Source files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.hpp" />
@@ -21,6 +24,12 @@
       <Filter>Engine\Header files</Filter>
     </ClInclude>
     <ClInclude Include="Vector3.hpp">
+      <Filter>Engine\Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.hpp">
+      <Filter>Game\Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="IncludeGL.hpp">
       <Filter>Engine\Header files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -33,6 +42,15 @@
     </Filter>
     <Filter Include="Engine\Header files">
       <UniqueIdentifier>{da8cc683-e66e-46b9-be58-7d0e16e23f76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{da5da970-230c-44cf-b615-656131378909}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Header files">
+      <UniqueIdentifier>{20f7215e-0a6e-4e0a-9272-9c64a700d8aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Source files">
+      <UniqueIdentifier>{df93035a-094a-4bc8-a479-a4ac1e7f81fa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
