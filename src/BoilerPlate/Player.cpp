@@ -18,6 +18,8 @@ namespace Game
 		m_position->y += unit.y;
 	}
 
+
+
 	void Player::Render()
 	{
 		glLoadIdentity();

@@ -18,9 +18,12 @@ namespace Game
 		/* ==========================
 		* PUBLIC FUNCTIONS
 		* ==========================*/
-		void Update( );
-		void Render( );
+		void Update( void );
+		void Render( void );
 		void Move( const Engine::Math::Vector2& unit );
+		void MoveForward( void );
+		void Rotateleft( void );
+		void RotateRight( void );
 	private:
 		/* ==========================
 		* MEMBERS
