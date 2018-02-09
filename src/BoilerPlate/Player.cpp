@@ -3,10 +3,24 @@
 
 namespace Game
 {
-	Player::Player()
+	inline float wrap(float x, float min, float max)
+	{
+		if (x < min) return max - (min - x);
+		if (x > max) return min + (x - max);
+		return x;
+	}
+
+	Player::Player(int width, int height)
 	{
 		m_position =
 			new Engine::Math::Vector2(Engine::Math::Vector2::Origin);
+
+		// TODO: RR: Ewww! Move this out!
+		m_maxWidth = width / 2.0f;
+		m_minWidth = -width / 2.0f;
+
+		m_maxHeight = height / 2.0f;
+		m_minHeight = -height / 2.0f;
 	}
 
 	void Player::Update()
@@ -14,11 +28,12 @@ namespace Game
 
 	void Player::Move(const Engine::Math::Vector2& unit)
 	{
-		m_position->x += unit.x;
-		m_position->y += unit.y;
+		float x = m_position->x + unit.x;
+		float y = m_position->y + unit.y;
+		
+		m_position->x = wrap(x, m_minWidth, m_maxWidth);
+		m_position->y = wrap(y, m_minHeight, m_maxHeight);
 	}
-
-
 
 	void Player::Render()
 	{

@@ -13,7 +13,7 @@ namespace Game
 		/* ==========================
 		* CTOR
 		* ==========================*/
-		Player( );
+		Player( int, int );
 
 		/* ==========================
 		* PUBLIC FUNCTIONS
@@ -29,6 +29,10 @@ namespace Game
 		* MEMBERS
 		* ==========================*/
 		Engine::Math::Vector2* m_position;
+		float m_maxWidth;
+		float m_minWidth;
+		float m_maxHeight;
+		float m_minHeight;
 	};
 }
 
