@@ -6,31 +6,37 @@
     <ClCompile Include="SDLEvent.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="stb_image.c" />
-    <ClCompile Include="Vector2.cpp">
-      <Filter>Engine\Source files</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector3.cpp">
-      <Filter>Engine\Source files</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Game\Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2.cpp">
+      <Filter>Engine\Source files\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector3.cpp">
+      <Filter>Engine\Source files\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector4.cpp">
+      <Filter>Engine\Source files\Math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.hpp" />
     <ClInclude Include="SDLEvent.hpp" />
     <ClInclude Include="TimeManager.hpp" />
-    <ClInclude Include="Vector2.hpp">
-      <Filter>Engine\Header files</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector3.hpp">
-      <Filter>Engine\Header files</Filter>
-    </ClInclude>
     <ClInclude Include="Player.hpp">
       <Filter>Game\Header files</Filter>
     </ClInclude>
     <ClInclude Include="IncludeGL.hpp">
       <Filter>Engine\Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2.hpp">
+      <Filter>Engine\Header files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3.hpp">
+      <Filter>Engine\Header files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector4.hpp">
+      <Filter>Engine\Header files\Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -51,6 +57,12 @@
     </Filter>
     <Filter Include="Game\Source files">
       <UniqueIdentifier>{df93035a-094a-4bc8-a479-a4ac1e7f81fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Header files\Math">
+      <UniqueIdentifier>{b12bfddd-3b02-4940-a559-085723f9b03d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Source files\Math">
+      <UniqueIdentifier>{a88334cd-4010-405e-9784-91b57a720650}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
