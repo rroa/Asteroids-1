@@ -44,10 +44,11 @@ namespace Game
 
 		// Draws a square
 		glBegin(GL_LINE_LOOP);
-			glVertex2f(50.0, 50.0);
-			glVertex2f(50.0, -50.0);
-			glVertex2f(-50.0, -50.0);
-			glVertex2f(-50.0, 50.0);
+			glVertex2f(0.0f, 20.0f);
+			glVertex2f(12.0f, -10.0f);
+			glVertex2f(6.0f, -4.0f);
+			glVertex2f(-6.0f, -4.0f);
+			glVertex2f(-12.0f, -10.0f);
 		glEnd();
 	}
 }
