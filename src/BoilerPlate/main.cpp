@@ -1,6 +1,6 @@
 /*
  * @author Raul Roa
- * @version v0.0.2
+ * @version v0.0.3
 */
 
 #if _MSC_VER && _DEBUG
