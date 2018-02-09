@@ -24,7 +24,7 @@ namespace Engine
 
 		//
 		m_player =
-			new Game::Player();
+			new Game::Player(m_width, m_height);
 	}
 
 	App::~App()

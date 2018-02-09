@@ -13,19 +13,26 @@ namespace Game
 		/* ==========================
 		* CTOR
 		* ==========================*/
-		Player( );
+		Player( int, int );
 
 		/* ==========================
 		* PUBLIC FUNCTIONS
 		* ==========================*/
-		void Update( );
-		void Render( );
-		void Move( const Engine::Math::Vector2& unit );
+		void Update      ( void );
+		void Render      ( void );
+		void Move        ( const Engine::Math::Vector2& unit );
+		void MoveForward ( void );
+		void Rotateleft  ( void );
+		void RotateRight ( void );
 	private:
 		/* ==========================
 		* MEMBERS
 		* ==========================*/
 		Engine::Math::Vector2* m_position;
+		float m_maxWidth;
+		float m_minWidth;
+		float m_maxHeight;
+		float m_minHeight;
 	};
 }
 
