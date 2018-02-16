@@ -25,6 +25,12 @@ namespace Engine
 		//
 		m_player =
 			new Game::Player(m_width, m_height);
+
+		m_asteroid = new Game::Asteroid(
+				Game::Asteroid::AsteroidSize::BIG,
+				m_width, 
+				m_height
+			);
 	}
 
 	App::~App()
@@ -32,6 +38,11 @@ namespace Engine
 		if (m_player)
 		{
 			delete m_player;
+		}
+
+		if (m_asteroid)
+		{
+			delete m_asteroid;
 		}
 
 		CleanupSDL();
@@ -95,18 +106,11 @@ namespace Engine
 			break;
 		case SDL_SCANCODE_A:
 			SDL_Log("Going left!");
-			m_player->Move(
-				Engine::Math::Vector2(-movingUnit, 0.0f));
+			m_player->Rotateleft();
 			break;
 		case SDL_SCANCODE_D:
 			SDL_Log("Going right!");
-			m_player->Move(
-				Engine::Math::Vector2(movingUnit, 0.0f));
-			break;
-		case SDL_SCANCODE_S:
-			SDL_Log("Going down!");
-			m_player->Move(
-				Engine::Math::Vector2(0.0f, -movingUnit));
+			m_player->RotateRight();
 			break;
 		default:			
 			SDL_Log("Physical %s key acting as %s key",
@@ -137,8 +141,9 @@ namespace Engine
 		double startTime = m_timer->GetElapsedTimeInSeconds();
 
 		// Update code goes here
-		//
-		m_player->Update();
+		// TODO: RR: Change this for actual delta time
+		m_player->Update(DESIRED_FRAME_TIME);
+		m_asteroid->Update(DESIRED_FRAME_TIME);
 
 
 		double endTime = m_timer->GetElapsedTimeInSeconds();
@@ -162,7 +167,8 @@ namespace Engine
 		glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		m_player->Render();// Loads the identity matrix
+		m_player->Render();
+		m_asteroid->Render();
 		
 		SDL_GL_SwapWindow(m_mainWindow);
 	}
@@ -264,8 +270,6 @@ namespace Engine
 		m_height = height;
 
 		SetupViewport();
-
-		m_player->UpdateSize(width, height);
 	}
 
 	void App::OnExit()

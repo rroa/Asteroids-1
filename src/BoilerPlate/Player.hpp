@@ -2,50 +2,45 @@
 #ifndef _PLAYER_H_
 #define _PLAYER_H_
 
+#include <vector>
+
 #include "Vector2.hpp"
+#include "Entity.hpp"
 
 namespace Game
 {
 
-	class Player
+	class Player : Entity
 	{
 	public:
 		/* ==========================
 		* CTOR
 		* ==========================*/
-		Player( int, int );
+		Player							   ( int, int );
 
 		/* ==========================
 		* PUBLIC FUNCTIONS
 		* ==========================*/
-		void Update      ( void );
-		void Render      ( void );
-		void Move        ( const Engine::Math::Vector2& unit );
-		void MoveForward ( void );
-		void Rotateleft  ( void );
-		void RotateRight ( void );
-		void UpdateSize  ( int, int );
-		inline void ToggleMove() { m_moving = !m_moving; }
+		void Update						   ( float deltaTime );
+		void Render						   ( void );
+		void MoveForward				   ( void );
+		void Rotateleft					   ( void );
+		void RotateRight				   ( void );
+		inline void ToggleMove			   ( ) { m_moving = !m_moving; }
 	private:
 		/* ==========================
 		* MEMBERS
 		* ==========================*/
-		Engine::Math::Vector2 m_position;
-		Engine::Math::Vector2 m_velocity;
-		float m_angle;
-		float m_mass;
-		float m_maxWidth;
-		float m_minWidth;
-		float m_maxHeight;
-		float m_minHeight;
-		bool  m_gasOn;
-		bool  m_moving;
-
+		float							   m_angle;
+		float							   m_currentSpeed;
+		bool							   m_gasOn;
+		bool							   m_moving;
+		std::vector<Engine::Math::Vector2> m_points;
 		/*
 		 * PRIVATE FUNCTIONS
 		 */
-		void CalcMinMax( int, int );
-		void ApplyImpulse(Engine::Math::Vector2);
+		void ApplyImpulse				   ( Engine::Math::Vector2 );
+		void ChangeShip					   ( );
 	};
 }
 

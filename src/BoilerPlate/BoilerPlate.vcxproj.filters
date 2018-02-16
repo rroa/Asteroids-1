@@ -18,6 +18,12 @@
     <ClCompile Include="Vector4.cpp">
       <Filter>Engine\Source files\Math</Filter>
     </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Game\Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="Asteroid.cpp">
+      <Filter>Game\Source files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.hpp" />
@@ -37,6 +43,12 @@
     </ClInclude>
     <ClInclude Include="Vector4.hpp">
       <Filter>Engine\Header files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.hpp">
+      <Filter>Game\Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="Asteroid.hpp">
+      <Filter>Game\Header files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

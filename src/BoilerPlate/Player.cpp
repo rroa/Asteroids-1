@@ -5,52 +5,54 @@
 namespace Game
 {
 	const float DRAG_FORCE = 0.999f;
-	const float MAX_VELOCITY = 350.0f;
+	const float MAX_SPEED = 350.0f;
+	// TODO: RR: Use Math utils PI
 	const float PI = 3.141592653f;
 	const float ANGLE_OFFSET = 90.f;
+	const float ROTATION_SPEED = 50.f;
 	const float THRUST = 3.0f;
-
-	inline float warp(float x, float min, float max)
-	{
-		if (x < min) return max - (min - x);
-		if (x > max) return min + (x - max);
-		return x;
-	}
-
-	void Player::CalcMinMax(int width, int height)
-	{
-		// TODO: RR: Ewww! Move this out!
-		m_maxWidth = width / 2.0f;
-		m_minWidth = -width / 2.0f;
-
-		m_maxHeight = height / 2.0f;
-		m_minHeight = -height / 2.0f;
-	}
 
 	Player::Player(int width, int height)
 		: m_gasOn(false)
 		, m_moving(false)
 		, m_angle(0.0f)
-		, m_mass(1.0f)
+		, Entity(width, height)
 	{
 		m_position =
 			Engine::Math::Vector2(Engine::Math::Vector2::Origin);
 
-		CalcMinMax(width, height);
+		ChangeShip();
 	}
 
-	void Player::Update()
+	void Player::ChangeShip()
+	{
+		m_points.push_back(Engine::Math::Vector2(0.0f, 20.0f));
+		m_points.push_back(Engine::Math::Vector2(12.0f, -10.0f));
+		m_points.push_back(Engine::Math::Vector2(6.0f, -4.0f));
+		m_points.push_back(Engine::Math::Vector2(-6.0f, -4.0f));
+		m_points.push_back(Engine::Math::Vector2(-12.0f, -10.0f));
+	}
+
+	void Player::Update(float deltaTime)
 	{
 		if(!m_moving) m_gasOn = false;
-	}
+		// Velocity is a vector but we want to clamp speed as a scalar
+		float speed =
+			std::fabs(std::sqrtf(
+					   m_velocity.x * m_velocity.x + 
+					   m_velocity.y * m_velocity.y)
+					  );
 
-	void Player::Move(const Engine::Math::Vector2& unit)
-	{
-		float x = m_position.x + unit.x;
-		float y = m_position.y + unit.y;
+		if (speed > MAX_SPEED)
+		{
+			// TODO: RR: Change this for clamp
+			m_velocity.x = (m_velocity.x / speed) * MAX_SPEED;
+			m_velocity.y = (m_velocity.y / speed) * MAX_SPEED;
+		}
 
-		m_position.x = warp(x, m_minWidth, m_maxWidth);
-		m_position.y = warp(y, m_minHeight, m_maxHeight);
+		m_currentSpeed = speed;
+
+		Entity::Update(deltaTime);
 	}
 
 	void Player::Render()
@@ -59,23 +61,42 @@ namespace Game
 
 		// Translates a vector
 		glTranslatef(m_position.x, m_position.y, 0.0f);
+		
+		// Change the orientation
+		glRotatef(m_angle, 0.0f, 0.0f, 1.0f);
 
-		// Draws a square
 		glBegin(GL_LINE_LOOP);
-			glVertex2f(0.0f, 20.0f);
-			glVertex2f(12.0f, -10.0f);
-			glVertex2f(6.0f, -4.0f);
-			glVertex2f(-6.0f, -4.0f);
-			glVertex2f(-12.0f, -10.0f);
+			std::vector<Engine::Math::Vector2>::iterator it = 
+				m_points.begin();
+			for (; it != m_points.end(); ++it)
+			{
+				glVertex2f((*it).x, (*it).y);
+			}
 		glEnd();
 
 		if (m_gasOn)
 		{
+			// TODO: RR: Move this out
 			glBegin(GL_LINE_LOOP);
 			glVertex2f(6.0f, -4.0f);
 			glVertex2f(0.0f, -16.0f);
 			glVertex2f(-6.0f, -4.0f);
 			glEnd();
+		}
+	}
+
+	void Player::ApplyImpulse(Engine::Math::Vector2 impulse)
+	{
+		if (m_mass > 0)
+		{
+			/* 
+			 * Apply angle OFFSET upon creation of object rather than 
+			 * every time impulse is applied 
+			 */
+			m_velocity.x += 
+				(impulse.x / m_mass) * cosf((m_angle + ANGLE_OFFSET) * (PI / 180));
+			m_velocity.y += 
+				(impulse.y / m_mass) * sinf((m_angle + ANGLE_OFFSET) * (PI / 180));
 		}
 	}
 
@@ -86,20 +107,13 @@ namespace Game
 		ApplyImpulse(Engine::Math::Vector2(THRUST, THRUST));
 	}
 
-	void Player::UpdateSize(int width, int height)
+	void Player::Rotateleft()
 	{
-		CalcMinMax(width, height);
+		m_angle += ROTATION_SPEED;
 	}
 
-	void Player::ApplyImpulse(Engine::Math::Vector2 impulse)
+	void Player::RotateRight()
 	{
-		if (m_mass > 0)
-		{
-			float x = m_position.x;
-			float y = m_position.y + THRUST;
-
-			m_position.x = warp(x, m_minWidth, m_maxWidth);
-			m_position.y = warp(y, m_minHeight, m_maxHeight);
-		}
+		m_angle -= ROTATION_SPEED;
 	}
 }

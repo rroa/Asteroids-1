@@ -12,6 +12,7 @@
 
 //
 #include "Player.hpp"
+#include "Asteroid.hpp"
 
 namespace Engine
 {
@@ -72,6 +73,7 @@ namespace Engine
 
 		//
 		Game::Player*						m_player;
+		Game::Asteroid*						m_asteroid;
 	};
 }
 #endif /* GAME_HPP */
