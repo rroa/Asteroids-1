@@ -91,8 +91,7 @@ namespace Engine
 		{
 		case SDL_SCANCODE_W:
 			SDL_Log("Going up!");
-			m_player->Move(
-				Engine::Math::Vector2(0.0f, movingUnit));
+			m_player->MoveForward();
 			break;
 		case SDL_SCANCODE_A:
 			SDL_Log("Going left!");
@@ -121,6 +120,9 @@ namespace Engine
 	{
 		switch (keyBoardEvent.keysym.scancode)
 		{
+		case SDL_SCANCODE_W:
+			m_player->ToggleMove();
+			break;
 		case SDL_SCANCODE_ESCAPE:
 			OnExit();
 			break;
@@ -136,6 +138,8 @@ namespace Engine
 
 		// Update code goes here
 		//
+		m_player->Update();
+
 
 		double endTime = m_timer->GetElapsedTimeInSeconds();
 		double nextTimeFrame = startTime + DESIRED_FRAME_TIME;
@@ -260,6 +264,8 @@ namespace Engine
 		m_height = height;
 
 		SetupViewport();
+
+		m_player->UpdateSize(width, height);
 	}
 
 	void App::OnExit()
